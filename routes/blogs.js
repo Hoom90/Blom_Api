@@ -4,8 +4,8 @@ const Blog = require("../models/blog");
 
 const authenticate = require("../middleware/authenticate");
 
-const urlAddressForFile = "http://localhost:3000";
-// const urlAddressForFile = "https://blom-server.iran.liara.run";
+// const urlAddressForFile = "http://localhost:3000";
+const urlAddressForFile = "https://blom-server.iran.liara.run";
 
 const multer = require("multer");
 const storage = multer.diskStorage({
