@@ -34,20 +34,26 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Getting One
-router.get("/:id", getFlower, (req, res) => {
-  res.json(res.flower);
+// Getting all user items
+router.get("/:id", getUserFlower, (req, res) => {
+  res.json(res.flowers);
 });
 
+// Getting One
+// router.get("/:id", getFlower, (req, res) => {
+//   res.json(res.flower);
+// });
+
 // Creating one
-router.post("/", authenticate, upload.single("file"), async (req, res) => {
+router.post("/", upload.array("files"), async (req, res) => {
   const flower = new Flower({
     userId: req.body.userId,
     name: req.body.name,
-    wateringTime: req.body.water,
     light: req.body.light,
-    soilingTime: req.body.soil,
-    temprature: req.body.temprature,
+    temprature: req.body.temp,
+    soil: req.body.soil,
+    symptom: req.body.symptom,
+    description: req.body.description,
     fileName: req.body.fileName,
     status: "checking",
   });
@@ -102,13 +108,27 @@ async function getFlower(req, res, next) {
   try {
     flower = await Flower.findById(req.params.id);
     if (flower == null) {
-      return res.status(404).json({ message: "Cannot find Flower" });
+      return res.status(404).json({ message: "No Flower Found" });
     }
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
 
   res.flower = flower;
+  next();
+}
+
+async function getUserFlower(req, res, next) {
+  let flowers;
+  try {
+    flowers = await Flower.find({ userId: req.params.id });
+    if (flowers == null) {
+      return res.status(404).json({ message: "No Flower Found" });
+    }
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+  res.flowers = flowers;
   next();
 }
 

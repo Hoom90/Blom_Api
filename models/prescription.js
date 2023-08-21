@@ -1,19 +1,22 @@
 const mongoose = require("mongoose");
 const schema = mongoose.Schema;
 
-const userSchema = new schema(
+const prescriptionSchema = new schema(
   {
-    userId: String,                 // کاربر
-    flowerId: String,               // گل
-    rootCause: String,              //علت
-    damagePercentage: Int16Array,   //درصد خرابی
-    cureMethod: String,             //روش درمان
-    medecine: String,               //دارو
-    necessaryTraining: String,      //اموزش های لازم
+    userId: String, // کاربر
+    flowerId: String, // گل
+    flowerName: String, // نام گل
+    health: String, //درصد خرابی
+    flowerFileName: String, //عکس گل
+    symptoms: String, //علائم
+    solution: String, //روش درمان
+    education: String, //اموزش های لازم
+    medecine: String, //دارو
+    medecineFileNames: String, // عکس دارو ها
   },
   { timestamps: true }
 );
 
-const User = mongoose.model("User", userSchema);
+const Prescription = mongoose.model("Prescription", prescriptionSchema);
 
-module.exports = User;
+module.exports = Prescription;
