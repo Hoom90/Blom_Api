@@ -6,6 +6,7 @@ const prescriptionSchema = new schema(
     userId: String, // کاربر
     flowerId: String, // گل
     flowerName: String, // نام گل
+    plantImagesName: String,
     health: String, //درصد خرابی
     flowerFileName: String, //عکس گل
     symptoms: String, //علائم
